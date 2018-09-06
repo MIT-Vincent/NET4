@@ -1,0 +1,30 @@
+create database tempoNET4;
+use tempoNET4;
+
+CREATE TABLE PLAYER (
+Id int IDENTITY PRIMARY KEY,
+p_name nvarchar(15),
+p_games int
+)
+
+CREATE TABLE GAMELEVEL (
+Id int IDENTITY PRIMARY KEY,
+l_name nvarchar(MAX),
+l_objectives int
+)
+
+CREATE TABLE GAMESCORES (
+Id int IDENTITY PRIMARY KEY,
+p_id int FOREIGN KEY REFERENCES PLAYER(Id),
+l_id int FOREIGN KEY REFERENCES GAMELEVEL(Id),
+p_deaths int,
+l_objcleared int
+)
+
+CREATE VIEW tempoview1 AS
+Select GAMESCORES.Id AS 'ID',p_id,l_id,p_deaths,l_objcleared, GAMELEVEL.l_name,GAMELEVEL.l_objectives FROM GAMESCORES LEFT JOIN GAMELEVEL ON GAMESCORES.l_id = GAMELEVEL.Id;
+
+CREATE VIEW RESULTSVIEW AS
+Select tempoview1.ID, p_id,l_id,l_name,p_deaths,l_objcleared,l_objectives,PLAYER.p_name FROM tempoview1 LEFT JOIN PLAYER ON tempoview1.ID = PLAYER.Id
+
+Select * from RESULTSVIEW
