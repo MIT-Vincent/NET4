@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour {
+public class VRWalk : MonoBehaviour {
 
     public float speed = 10.0F;
     public string name = "";
+    public bool moveForward;
+
+    private CharacterController cc;
+
 	// Use this for initialization
 	void Start () {
         Cursor.lockState = CursorLockMode.Locked;
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,5 +33,6 @@ public class CharacterController : MonoBehaviour {
             transform.Translate(Vector3.up * 260 * Time.deltaTime, Space.World);
          }
 
+       
     }
 }
